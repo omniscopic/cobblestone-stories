@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A deep time walk through the geology of downtown Nantucket, guided by Dr. Rich Blundell.">
+<title>Cobblestone Stories</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one downward walk through time. Each story pairs the lost world with the stone it left in the street. */
+:root {
+  --ground: #e6e8e7;      /* pale granite */
+  --surface: #f3f4f3;
+  --ink: #1c2326;         /* wet basalt */
+  --muted: #566167;
+  --line: #bcc3c4;
+  --marker: #c4321a;      /* the red marker circling each stone */
+  --on-photo: #ffffff;
+  --display: "Young Serif", Georgia, "Times New Roman", serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #171c1f; --surface: #20272a; --ink: #e8ebea; --muted: #a0abaf; --line: #3a4448; --marker: #f0694f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #171c1f; --surface: #20272a; --ink: #e8ebea; --muted: #a0abaf; --line: #3a4448; --marker: #f0694f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+[hidden] { display: none !important; }
+body { background: var(--ground); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); }
+img, video { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; }
+
+.wrap {
+  max-width: 68rem; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label { font-size: .78rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+
+/* Photo bands: text at the top, a light shade so the color stays */
+.band { position: relative; background: #14191b; color: var(--on-photo); }
+.band img { width: 100%; object-fit: cover; }
+.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,14,16,.46) 0%, rgba(10,14,16,.22) 26%, rgba(10,14,16,0) 46%); }
+.band-text { position: absolute; z-index: 1; inset: 0 0 auto; padding-block: 2.5rem; text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.4); }
+.hero { overflow: hidden; }
+.hero .hero-fill { position: absolute; inset: 0; height: 100%; transform: scale(1.12); filter: blur(30px) brightness(.8); }
+.hero .hero-photo { position: relative; height: clamp(36rem, 92vh, 64rem); object-fit: contain; object-position: 50% 50%; }
+.hero .band-text { text-align: center; }
+.hero h1 { font-size: clamp(2.7rem, 6vw, 4.2rem); line-height: 1; }
+.hero .sub { font-size: clamp(1.1rem, 2.4vw, 1.5rem); line-height: 1.35; margin-top: .75rem; margin-inline: auto; max-width: 36rem; }
+.hero .facts { margin-top: 1rem; font-size: .95rem; font-weight: 500; }
+.sunset img { height: clamp(40rem, 58vw, 48rem); object-position: 50% 42%; }
+.sunset p { font-family: var(--display); font-size: clamp(1.55rem, 3.4vw, 2.5rem); line-height: 1.22; max-width: 46rem; text-wrap: balance; }
+
+/* Intro */
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; padding-block: clamp(3rem, 7vw, 5.5rem); }
+.intro .lead { font-family: var(--display); font-size: clamp(1.5rem, 3.2vw, 2.15rem); line-height: 1.28; max-width: 34rem; }
+.intro .copy { display: grid; gap: 1rem; max-width: 36rem; margin-top: 1.5rem; }
+figcaption { font-size: .88rem; line-height: 1.45; color: var(--muted); margin-top: .6rem; }
+
+/* Video */
+.film { background: #14191b; color: #eef0ef; --film-muted: #aab4b8; }
+.film-grid { display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding-block: clamp(2.5rem, 6vw, 4.5rem); }
+.film video { width: 100%; aspect-ratio: 3 / 4; background: #000; }
+.film .label { color: var(--film-muted); }
+.film h2 { font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.08; margin-top: .6rem; }
+.film .copy { display: grid; gap: 1rem; margin-top: 1.25rem; max-width: 32rem; }
+.film .hint { font-size: .9rem; color: var(--film-muted); }
+
+/* Stories */
+.stops-head { padding-block: clamp(3rem, 7vw, 5rem) 1.5rem; }
+.stops-head h2 { font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.08; }
+.stops-head .note { margin-top: .9rem; max-width: 38rem; color: var(--muted); }
+.stop { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 32rem); gap: clamp(1.25rem, 3.5vw, 3rem); padding-block: 2.25rem; border-top: 1px solid var(--line); align-items: start; }
+.age { font-family: var(--display); font-size: 1.15rem; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: .4rem; }
+.stop h3 { font-size: clamp(1.5rem, 2.8vw, 1.95rem); line-height: 1.15; }
+.stop .rock { font-weight: 600; margin-top: .3rem; color: var(--marker); }
+.stop .story { display: grid; gap: .8rem; margin-top: .9rem; }
+.stop dl { margin: 0; display: grid; gap: .8rem; }
+.stop dt { font-size: .78rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.stop dd { margin: .1rem 0 0; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.pair img, .strip img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 0; }
+.pos-mid { object-position: 50% 50% !important; }
+.pos-s4 { object-position: 50% 78% !important; }
+.pos-s5 { object-position: 50% 15% !important; }
+.pos-map { object-position: 72% 50% !important; }
+
+.along { padding-block: 2.25rem clamp(3rem, 7vw, 5rem); border-top: 1px solid var(--line); }
+.along h3 { font-size: clamp(1.5rem, 2.8vw, 1.95rem); line-height: 1.15; }
+.along > p { margin-top: .5rem; max-width: 40rem; }
+.strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .75rem; margin-top: 1.25rem; }
+.strip figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+
+/* After the sunset */
+.join { display: grid; gap: 1.5rem; padding-block: clamp(3rem, 7vw, 4.5rem); }
+.join h2 { font-size: clamp(1.9rem, 4.6vw, 3.1rem); line-height: 1.12; }
+.join dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3.5vw, 3rem); }
+.join dt { font-size: .78rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.join dd { margin: .3rem 0 0; }
+.join a { color: var(--marker); text-underline-offset: .18em; }
+.join > p { max-width: 40rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+@media (max-width: 860px) {
+  .intro, .film-grid, .stop, .join dl { grid-template-columns: minmax(0, 1fr); }
+  .hero .hero-photo { height: auto; }
+  .intro figure { max-width: 22rem; }
+  .film-grid figure { max-width: 26rem; }
+  .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body>
+<header class="band hero">
+  <img class="hero-fill" src="media/pacific-bank.jpg" alt="" width="1200" height="1600">
+  <img class="hero-photo" src="media/pacific-bank.jpg" alt="The Pacific Bank, a red brick building with white columns, on a sunny day above a sweep of sunlit cobblestones." width="1200" height="1600">
+  <div class="band-text">
+    <div class="wrap">
+      <h1>Cobblestone Stories</h1>
+      <p class="sub">A deep time walk through the geology of downtown Nantucket</p>
+      <p class="facts">Guided by Dr. Rich Blundell, Natural Historian</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap intro">
+    <div>
+      <p class="lead">People from far away and locals alike walk these streets never knowing that the stones hold deep secrets about the evolution of the planet and life itself.</p>
+      <div class="copy">
+        <p>One of the most rewarding things we can do is get to know our home. Cobblestone Stories is a great introduction to a deeper way of seeing and experiencing the world.</p>
+        <p>We hear the geological stories and then find the rocks that embody those stories. We watch videos to visualize the processes and hold fossils from Dr. Blundell's personal collection that bring the stories to life. Along the way we find surprises and learn the deep history of Earth and life through time.</p>
+      </div>
+    </div>
+    <figure>
+      <img src="media/s1m.jpg" alt="Close-up of a banded grey and tan cobble set in the street." width="900" height="1200" loading="lazy">
+      <figcaption>Grenville gneiss in the street, about 1.1 billion years old.</figcaption>
+    </figure>
+  </section>
+
+  <section class="film">
+    <div class="wrap film-grid">
+      <figure>
+        <video id="bank-film" src="media/pacific-bank.mp4" poster="media/poster.jpg" controls muted loop playsinline preload="metadata" width="810" height="1080" aria-label="Video of the Pacific Bank on Main Street dissolving back through ice sheets, ancient seas and bare mountains to 1.1 billion years ago."></video>
+      </figure>
+      <div>
+        <p class="label">The Pacific Bank, 18 seconds</p>
+        <h2>Watch the street dissolve into the stone's lost world</h2>
+        <div class="copy">
+          <p>Start at the Pacific Bank on a sunny day. Run the clock back through the ice sheet, the ancient seas and the bare mountains, to the world that made the stone in the street out front, 1.1 billion years ago.</p>
+          <p>Dr. Blundell uses visualizations like this in the talk to help bring the geology to life.</p>
+          <p class="hint">Click the speaker to hear the ancient sounds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="stops-head">
+      <h2>The stories, oldest first</h2>
+      <p class="note">The stones and locations on the day may differ from those shown here due to traffic and other conditions.</p>
+    </div>
+
+    <article class="stop">
+      <div>
+        <p class="age">~1.1 billion years</p>
+        <h3>The Foundation</h3>
+        <p class="rock">Grenville gneiss</p>
+        <div class="story">
+          <p>Bare rock and gravel to every horizon. No soil, no green, jagged young mountains, rivers with nothing living beside them.</p>
+          <dl>
+            <div><dt>Find it</dt><dd>Banded grey stone, streaky where the light catches it.</dd></div>
+            <div><dt>In your hand</dt><dd>Banded iron and a stromatolite. Life is already here, hidden in iron and microbial mats.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img class="pos-mid" src="media/w1100.jpg" alt="Painted scene of jagged bare mountains falling to a grey sea." width="896" height="1200" loading="lazy"><figcaption>The world that made it</figcaption></figure>
+        <figure><img class="pos-mid" src="media/s1.jpg" alt="A section of cobblestones with one stone circled in red marker." width="900" height="1200" loading="lazy"><figcaption>The stone in the street</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="stop">
+      <div>
+        <p class="age">~420 million years</p>
+        <h3>The Great Collision</h3>
+        <p class="rock">Dedham granite</p>
+        <div class="story">
+          <p>Avalon arrives and becomes the ground under our feet. A warm shallow sea, first low plants greening the stream edges, first volcanic peaks on the horizon.</p>
+          <dl>
+            <div><dt>Find it</dt><dd>Pale granite with big blocky feldspar crystals.</dd></div>
+            <div><dt>In your hand</dt><dd>A trilobite, and an orthoceras, a straight-shelled cousin of squid and one of the first big hunters.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img src="media/w380.jpg" alt="Painted cross-section of a volcanic mountain belt, with magma rising through the crust to erupting volcanoes." width="531" height="597" loading="lazy"><figcaption>The world that made it</figcaption></figure>
+        <figure><img class="pos-mid" src="media/s2.jpg" alt="Cobblestones with a pale stone circled in red marker and an arrow pointing to it." width="900" height="1200" loading="lazy"><figcaption>The stone in the street</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="stop">
+      <div>
+        <p class="age">~360–325 million years</p>
+        <h3>The Wearing Down</h3>
+        <p class="rock">Conglomerate</p>
+        <div class="story">
+          <p>The quiet chapter between collisions, with the land wearing down. Warm, wet and equatorial. Coal swamps, tree-sized club mosses, hawk-sized dragonflies, a river floodplain dumping sand.</p>
+          <dl>
+            <div><dt>Find it</dt><dd>A cobble made of smaller pebbles, cemented together.</dd></div>
+            <div><dt>In your hand</dt><dd>A crinoid, a sea lily, an animal that stood on a stalk like a flower and filtered the water.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img src="media/w360.jpg" alt="Painted aerial view of a braided river floodplain dumping red sand into the sea." width="531" height="597" loading="lazy"><figcaption>The world that made it</figcaption></figure>
+        <figure><img class="pos-mid" src="media/s3.jpg" alt="Cobblestones beside a granite curb with one stone circled in red marker." width="900" height="1200" loading="lazy"><figcaption>The stone in the street</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="stop">
+      <div>
+        <p class="age">~220–200 million years</p>
+        <h3>The Atlantic Opens</h3>
+        <p class="rock">Vesicular basalt</p>
+        <div class="story">
+          <p>Pangaea tears apart and the Atlantic is born. A hot dry rift valley, red mudflats and lakes, black lava spreading from fissures, early dinosaurs leaving three-toed tracks.</p>
+          <dl>
+            <div><dt>Find it</dt><dd>The darkest, densest stone in the street.</dd></div>
+            <div><dt>In your hand</dt><dd>An ammonoid, the coiled cousin of squid that filled the Mesozoic seas, and the seed cone of a cycad.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img src="media/w200.jpg" alt="Painted scene of erupting volcanoes with rivers of lava." width="531" height="597" loading="lazy"><figcaption>The world that made it</figcaption></figure>
+        <figure><img class="pos-s4" src="media/s4.jpg" alt="Cobblestones near the waterfront with a dark stone circled in red marker." width="900" height="1200" loading="lazy"><figcaption>The stone in the street</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="stop">
+      <div>
+        <p class="age">~66 million years</p>
+        <h3>The Day It Ended</h3>
+        <p class="rock">Quartzite</p>
+        <div class="story">
+          <p>A warm Cretaceous coast. Then a light brighter than the sun, a scorching sky, and a worldwide fallout of glass droplets and shocked grains.</p>
+          <dl>
+            <div><dt>Find it</dt><dd>The palest, hardest cobble, nearly white when wet.</dd></div>
+            <div><dt>In your hand</dt><dd>Nothing new. The coiled shells you just held vanished on this day, gone with the dinosaurs.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img src="media/w66.jpg" alt="Painted scene of a scorched orange sky over a burned landscape." width="531" height="597" loading="lazy"><figcaption>The world that made it</figcaption></figure>
+        <figure><img class="pos-s5" src="media/s5.jpg" alt="Cobblestones with a nearly white stone circled in red marker." width="900" height="1200" loading="lazy"><figcaption>The stone in the street</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="stop">
+      <div>
+        <p class="age">~21,000 years</p>
+        <h3>The Ice That Carried Us Here</h3>
+        <p class="rock">The moraine, Orange Street ridge</p>
+        <div class="story">
+          <p>A mile-high wall of ice grinds south. The stones behind you were plucked from their different homelands, dragged beneath the ice, and dropped where it stopped. That dumping ground is the island under your feet. Nantucket is the rock pile.</p>
+          <dl>
+            <div><dt>In your hand</dt><dd>A shark tooth, horse teeth from Georges Bank and amber, from the recent world just before the cold.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="pair">
+        <figure><img src="media/w1.jpg" alt="Painted scene of a wall of glacial ice with meltwater rivers braiding across grey outwash." width="531" height="597" loading="lazy"><figcaption>The ice front</figcaption></figure>
+        <figure><img class="pos-map" src="media/map.jpg" alt="Colored geologic map of New England, showing the rock units the ice crossed on its way to Nantucket." width="1230" height="850" loading="lazy"><figcaption>Where your stones began</figcaption></figure>
+      </div>
+    </article>
+
+    <div class="along">
+      <h3>Along the way</h3>
+      <p>Between the stones, the story keeps going.</p>
+      <div class="strip">
+        <figure><img src="media/w540.jpg" alt="Painted scene of trilobites on a shallow sea floor." width="531" height="597" loading="lazy"><figcaption><strong>Trilobite seas</strong>540 million years</figcaption></figure>
+        <figure><img src="media/w400.jpg" alt="Painted scene of early fish beneath a shoreline forest." width="531" height="597" loading="lazy"><figcaption><strong>The first forests</strong>400 million years</figcaption></figure>
+        <figure><img src="media/w300.jpg" alt="Painted scene of a swamp with giant dragonflies below tall mountains." width="531" height="597" loading="lazy"><figcaption><strong>Giant dragonflies</strong>300 million years</figcaption></figure>
+        <figure><img src="media/w250.jpg" alt="Painted scene of cracked earth and dead animals under a purple sky." width="531" height="597" loading="lazy"><figcaption><strong>The Great Dying</strong>250 million years</figcaption></figure>
+        <figure><img src="media/w100.jpg" alt="Painted scene of marine reptiles in a clear blue sea." width="531" height="597" loading="lazy"><figcaption><strong>Reptiles of the sea</strong>100 million years</figcaption></figure>
+        <figure><img src="media/w7.jpg" alt="Painted scene of an early human ancestor walking upright through woodland." width="531" height="597" loading="lazy"><figcaption><strong>Walking upright</strong>7 million years</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band sunset">
+    <img src="media/sunset.jpg" alt="A cobblestone street at sunset, running uphill past a lit brick building toward an orange sky." width="1200" height="1600" loading="lazy">
+    <div class="band-text">
+      <div class="wrap">
+        <p>You won't walk these streets the same way again.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap join">
+    <h2>Join the walk</h2>
+    <dl>
+      <div><dt>Where we meet</dt><dd>On the steps of the Pacific Bank.</dd></div>
+      <div><dt>The route</dt><dd>We walk various routes and distances depending on participant abilities. About 90 minutes.</dd></div>
+      <div><dt>Bring</dt><dd>Comfortable shoes, sunscreen and water are encouraged.</dd></div>
+    </dl>
+    <p>Cobblestone Stories is offered as a partnership between <a href="https://richblundell.com">Dr. Rich Blundell</a> of <a href="https://beautifulfutureslab.substack.com">the Beautiful Futures Lab</a> and <a href="https://www.mariamitchell.org">the Maria Mitchell Association</a>.</p>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var v = document.getElementById('bank-film');
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (v && !calm) { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } }
+  })();
+</script>
+</body>
+</html>
