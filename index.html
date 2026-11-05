@@ -53,7 +53,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; 
 .band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,14,16,.46) 0%, rgba(10,14,16,.22) 26%, rgba(10,14,16,0) 46%); }
 .band-text { position: absolute; z-index: 1; inset: 0 0 auto; padding-block: 2.5rem; text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.4); }
 .hero { overflow: hidden; }
-.hero .hero-fill { position: absolute; inset: 0; height: 100%; transform: scale(1.12); filter: blur(30px) brightness(.8); }
 .hero .hero-photo { position: relative; height: clamp(36rem, 92vh, 64rem); object-fit: contain; object-position: 50% 50%; }
 .hero .band-text { text-align: center; }
 .hero h1 { font-size: clamp(2.7rem, 6vw, 4.2rem); line-height: 1; }
@@ -125,7 +124,6 @@ figcaption { font-size: .88rem; line-height: 1.45; color: var(--muted); margin-t
 </head>
 <body>
 <header class="band hero">
-  <img class="hero-fill" src="media/pacific-bank.jpg" alt="" width="1200" height="1600">
   <img class="hero-photo" src="media/pacific-bank.jpg" alt="The Pacific Bank, a red brick building with white columns, on a sunny day above a sweep of sunlit cobblestones." width="1200" height="1600">
   <div class="band-text">
     <div class="wrap">
